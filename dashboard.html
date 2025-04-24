@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bakery Dashboard</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --pink: #f3c3de;
+      --blue: #6f95ab;
+      --cream: #f9f0e5;
+    }
+  </style>
+</head>
+<body class="bg-[--cream] font-sans">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[--blue] text-white flex flex-col">
+      <div class="text-2xl font-bold p-4 border-b border-white/20">Bakery Management</div>
+      <button onclick="logout()" class="text-sm text-white mt-4 underline">Logout</button>
+      <nav class="flex-1 p-4 space-y-3">
+        <a href="dashboard.html" class="flex items-center space-x-2 p-2 rounded bg-[--pink]">
+          <span class="material-icons">dashboard</span><span>Dashboard</span>
+        </a>
+        <a href="customers.html" class="flex items-center space-x-2 p-2 rounded hover:bg-[--pink]/80">
+          <span class="material-icons">people</span><span>Customers</span>
+        </a>
+        <a href="orders.html" class="flex items-center space-x-2 p-2 rounded hover:bg-[--pink]/80">
+          <span class="material-icons">list</span><span>Orders</span>
+        </a>
+        <a href="inventory.html" class="flex items-center space-x-2 p-2 rounded hover:bg-[--pink]/80">
+          <span class="material-icons">inventory_2</span><span>Inventory</span>
+        </a>
+        <a href="reports.html" class="flex items-center space-x-2 p-2 rounded hover:bg-[--pink]/80">
+          <span class="material-icons">bar_chart</span><span>Reports</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <h1 class="text-3xl font-semibold text-gray-800 mb-6">Dashboard Overview</h1>
+
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <!-- Total Orders Card -->
+        <div class="bg-white p-5 rounded-xl shadow text-center">
+          <h2 class="text-sm text-gray-500">Total Orders</h2>
+          <p class="text-3xl font-bold text-[--blue]" id="totalOrders">...</p>
+        </div>
+
+        <!-- Pending Orders Card -->
+        <div class="bg-white p-5 rounded-xl shadow text-center">
+          <h2 class="text-sm text-gray-500">Pending Orders</h2>
+          <p class="text-3xl font-bold text-[--blue]" id="pendingOrders">...</p>
+        </div>
+
+        <!-- Stock Available Card -->
+        <div class="bg-white p-5 rounded-xl shadow text-center">
+          <h2 class="text-sm text-gray-500">Stock Available</h2>
+          <p class="text-3xl font-bold text-[--blue]" id="stockCount">...</p>
+        </div>
+
+        <!-- Low Inventory Card -->
+        <div class="bg-white p-5 rounded-xl shadow text-center">
+          <h2 class="text-sm text-gray-500">Low Inventory</h2>
+          <p class="text-3xl font-bold text-red-500" id="lowStock">...</p>
+        </div>
+      </div>
+
+      <!-- Revenue Section -->
+      <div class="mt-10">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Revenue</h2>
+        <div class="bg-white p-6 rounded-xl shadow">
+          <p class="text-3xl font-bold text-green-600" id="totalRevenue">KSh 945,200</p>
+          <div class="text-sm mt-2 flex gap-4 text-gray-600">
+            <span>Jan: KSh 15,700</span>
+            <span>Feb: KSh 31,500</span>
+            <span>Mar: KSh 7,400</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Script to dynamically load data later -->
+  <script src="js/app.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

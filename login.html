@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Bakery Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-[--cream] min-h-screen flex items-center justify-center font-sans" style="--cream: #FFEFDC;">
+  <div class="bg-white shadow-xl rounded-lg p-10 w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center text-gray-700 mb-6">Login to Dashboard</h2>
+
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Username</label>
+        <input type="text" id="username" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Password</label>
+        <input type="password" id="password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300" required>
+      </div>
+
+      <button type="submit" class="w-full bg-[#f3c3de] text-white font-semibold py-2 rounded hover:bg-[#1a252f] transition">Login</button>
+      <p id="errorMsg" class="text-sm text-red-500 text-center hidden">Invalid login. Please try again.</p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.token) {
+          localStorage.setItem('token', data.token);
+          window.location.href = 'dashboard.html';
+        } else {
+          errorMsg.classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error(err);
+        errorMsg.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
